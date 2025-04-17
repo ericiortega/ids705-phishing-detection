@@ -41,7 +41,7 @@ def train_and_evaluate(df, model_tag="default"):
 
     model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=2)
 
-    # Use Metal (MPS) if available (Apple Silicon), fallback to CPU
+    # using Metal (MPS) if available (Apple Silicon), fallback to CPU, allows to run faster on local
     device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
     model.to(device)
 
@@ -53,8 +53,8 @@ def train_and_evaluate(df, model_tag="default"):
         logging_dir=f"./results/logs_{model_tag}",
         logging_steps=10,
         save_strategy="no",
-        report_to="none",                # disables wandb and other loggers
-        disable_tqdm=False               # optional: set True to suppress progress bar
+        report_to="none",                # disable wandb and other loggers
+        disable_tqdm=False               # see progress
     )
 
     trainer = Trainer(
