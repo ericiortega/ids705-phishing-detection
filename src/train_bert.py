@@ -12,60 +12,49 @@ from transformers import (
 )
 from datasets import Dataset
 
-
-def tokenize_and_prepare(df, tokenizer):
+def tokenize_and_prepare(df, tokenizer, max_length=128):
     """
     Splits the dataset into train/test and tokenizes the text.
-
-    Args:
-        df (pd.DataFrame): DataFrame with 'body' and 'label' columns.
-        tokenizer (Tokenizer): Hugging Face tokenizer.
-
-    Returns:
-        train_dataset, test_dataset, test_labels
     """
     train_texts, test_texts, train_labels, test_labels = train_test_split(
         df["body"], df["label"].astype(int), test_size=0.2, random_state=42
     )
 
-    train_enc = tokenizer(train_texts.tolist(), truncation=True, padding=True)
-    test_enc = tokenizer(test_texts.tolist(), truncation=True, padding=True)
+    train_enc = tokenizer(train_texts.tolist(), truncation=True, padding=True, max_length=max_length)
+    test_enc = tokenizer(test_texts.tolist(), truncation=True, padding=True, max_length=max_length)
 
     train_dataset = Dataset.from_dict({**train_enc, "label": train_labels.tolist()})
     test_dataset = Dataset.from_dict({**test_enc, "label": test_labels.tolist()})
 
     return train_dataset, test_dataset, test_labels
 
-
 def train_and_evaluate(df, model_tag="default"):
     """
-    Trains and evaluates BERT on a given dataset and saves performance metrics.
-
-    Args:
-        df (pd.DataFrame): DataFrame with 'body' and 'label'.
-        model_tag (str): A tag used to name saved logs and output files.
-
-    Outputs:
-        - Trained model in ./results/bert_<model_tag>/
-        - JSON metrics in ./results/metrics_<model_tag>.json
+    Trains and evaluates BERT on a given dataset and saves performance metrics locally.
     """
+    # smaller portion because I am testing locally
+    if len(df) > 2000:
+        df = df.sample(n=1000, random_state=42).reset_index(drop=True)
+
     tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
     train_ds, test_ds, y_true = tokenize_and_prepare(df, tokenizer)
 
-    model = BertForSequenceClassification.from_pretrained(
-        "bert-base-uncased", num_labels=2
-    )
+    model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=2)
+
+    # Use Metal (MPS) if available (Apple Silicon), fallback to CPU
     device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
     model.to(device)
 
     args = TrainingArguments(
         output_dir=f"./results/bert_{model_tag}",
-        per_device_train_batch_size=8,
-        per_device_eval_batch_size=8,
-        num_train_epochs=2,
+        per_device_train_batch_size=4,   # low batch size to reduce load
+        per_device_eval_batch_size=4,
+        num_train_epochs=1,              # fewer epochs for faster run
         logging_dir=f"./results/logs_{model_tag}",
         logging_steps=10,
-        save_strategy="no",  # we won’t save checkpoints
+        save_strategy="no",
+        report_to="none",                # disables wandb and other loggers
+        disable_tqdm=False               # optional: set True to suppress progress bar
     )
 
     trainer = Trainer(
@@ -83,7 +72,7 @@ def train_and_evaluate(df, model_tag="default"):
     acc = accuracy_score(y_true, y_pred)
     report = classification_report(y_true, y_pred, output_dict=True)
 
-    # Save evaluation metrics
+    # Save metrics
     os.makedirs("results", exist_ok=True)
     with open(f"results/metrics_{model_tag}.json", "w") as f:
         json.dump(

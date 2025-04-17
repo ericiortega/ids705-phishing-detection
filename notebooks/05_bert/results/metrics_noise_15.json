@@ -1,0 +1,6 @@
+{
+  "accuracy": 0.97,
+  "f1_phishing": 0.9727,
+  "precision": 0.9554,
+  "recall": 0.9907
+}
