@@ -26,9 +26,11 @@ Our findings indicate that BERT delivers consistently high performance with mini
 .
 ```
 ├── data/
-│   ├── raw/             # Raw TREC 2007 Public Spam Corpus
-│   └── cleaning/        # Data cleaning notebook and cleaned CSV
-├── notebooks/           # Experiments 1, 2, 3, 4
+│   ├── raw/                     # Raw TREC 2007 Public Spam Corpus
+│   └── cleaning/                # Data cleaning notebook and cleaned CSV
+├── notebooks/                   # Experiments 1, 2, 3, 4
+│   ├── 3_experiment_noise_bert/ # Experiment 3
+│   └── results                  # Results from each run
 ├── results/             # Output files 
 ├── requirements.txt     # Project dependencies
 └── README.md            # Project documentation
@@ -95,17 +97,40 @@ These metrics provide a comprehensive view of each model's effectiveness in clas
 
 - Adversarial perturbations challenge BERT’s robustness, motivating further research in adversarial training. 
 
-### Prerequisites
+## ⚙️ Setup & Reproducibility
 
-Ensure you have Python 3.7 or higher installed. Then, install the required packages:
+This repository contains a descriptive and reproducible setup to replicate all results.
+
+### ✅ Prerequisites
+
+- Python 3.7+
+- pip or virtualenv
+
+### 📦 Install Dependencies
 
 ```bash
+git clone https://github.com/ericiortega/ids705-phishing-detection.git
+cd ids705-phishing-detection
 pip install -r requirements.txt
 ```
+
+### ▶️ Run the Code
+
+1. **Data Preparation**  
+   Navigate to `data/cleaning/` and run the cleaning notebook to generate `2_cleaned_data.csv`.
+
+2. **Model Training and Evaluation**  
+   Launch Jupyter and open any notebook from `notebooks/` to explore the experiments 1, 2, 3, 4:
+   - Experiment 1 (1_experiment_baseline_vs_other_models.ipynb) Train models and compare key statistic (Logistic Regression, Naïve Bayes, XGBoost, BERT)
+   - Experiment 2 (2_experiment_data_preprocessing_pipelines.ipynb): Data Processing Pipelines Comparison
+   - Experiment 3 (3_experiment_noise_bert): Evaluating BERT’s Robustness to Adversarial Noise
+   - Experiment 4 (4_experiment_social_features.ipynb): Social Engineering Detection via Behavioral Feature Engineering
+
 
 ## 📚 References
 
 - Champa, A. I., Zibran, M. F., & Rahayu, W. (2024a). *Why phishing emails escape detection: A closer look at the failure points.* 2024 12th International Symposium on Digital Forensics and Security (ISDFS), IEEE. [IEEE Link](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10527344)
 
 - Champa, A. I., Zibran, M. F., & Rahayu, W. (2024b). *Curated datasets and feature analysis for phishing email detection with machine learning.* 2024 3rd IEEE International Conference on Computing and Machine Intelligence (ICMI). [Paper PDF](https://www2.cose.isu.edu/~minhazzibran/resources/MyPapers/Champa_ICMI2024_Published.pdf)
+
 
