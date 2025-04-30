@@ -1,0 +1,13 @@
+pandas
+numpy
+matplotlib
+seaborn
+nltk
+scikit-learn
+xgboost
+torch
+transformers
+accelerate>=0.26.0
+sympy
+datasets
+sentence-transformers
