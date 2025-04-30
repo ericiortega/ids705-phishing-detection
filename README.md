@@ -12,7 +12,7 @@ This project explores phishing email classification using both traditional machi
 
 Phishing emails remain a persistent and evolving cybersecurity threat, often exploiting linguistic ambiguity and psychological manipulation to bypass conventional filters. This project explores phishing detection through the lens of supervised learning by analyzing four key dimensions: model architecture, text preprocessing, adversarial robustness, and behavioral feature engineering. We compare traditional machine learning models (Naïve Bayes, Logistic Regression, XGBoost) with deep learning approaches (BERT), and assess how incorporating structured metadata and psychological deception cues influences classification performance.
 
-Our findings indicate that BERT delivers consistently high performance with minimal parameter tuning, while XGBoost combined with engineered features achieves the highest overall accuracy. Importantly, we demonstrate that reducing false negatives—even marginally—can significantly improve security in high-risk environments. Lastly, we show that integrating behavioral deception features enhances performance in lightweight models, offering a practical and interpretable alternative or complement to deep content-based approaches.
+Our findings indicate that BERT delivers consistently high performance with minimal parameter tuning, while XGBoost combined with engineered features achieves the highest overall accuracy. Importantly, we demonstrate that reducing false negatives can significantly improve security in high-risk environments. Lastly, we show that integrating behavioral deception features enhances performance in lightweight models, offering a practical and interpretable alternative or complement to deep content-based approaches.
 
 
 
