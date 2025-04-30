@@ -23,7 +23,7 @@ Our findings indicate that BERT delivers consistently high performance with mini
 - **`report and slides/`**: Stored outputs including model performance summary
 - **`requirements.txt`**: List of Python dependencies required to run the project.
 - **`README.md`**
-.
+
 ```
 ├── data/
 │   ├── raw/                     # Raw TREC 2007 Public Spam Corpus
