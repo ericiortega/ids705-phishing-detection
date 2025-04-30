@@ -1,0 +1,4 @@
+accuracy,f1_phishing,precision,recall,noise_level,run
+0.93,0.9391,0.8852,1.0,noise_40,1
+0.915,0.9258,0.876,0.9815,noise_40,2
+0.92,0.9292,0.8898,0.9722,noise_40,3
