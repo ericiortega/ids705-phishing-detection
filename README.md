@@ -20,7 +20,7 @@ Our findings indicate that BERT delivers consistently high performance with mini
 
 - **`data/`**: Contains the TREC 2007 Public Spam Corpus dataset.
 - **`notebooks/`**: Jupyter notebooks: model training and comparison Experiment 1, data preprocessing pipelines Experiment 2, adverserial noise model evaluation Experiment 3, and Social Deception features evaluation Experiment 4
-- **`results/`**: Stored outputs including model performance summary
+- **`report and slides/`**: Stored outputs including model performance summary
 - **`requirements.txt`**: List of Python dependencies required to run the project.
 - **`README.md`**
 .
@@ -31,9 +31,9 @@ Our findings indicate that BERT delivers consistently high performance with mini
 ├── notebooks/                   # Experiments 1, 2, 3, 4
 │   ├── 3_experiment_noise_bert/ # Experiment 3
 │   └── results                  # Results from each run
-├── results/             # Output files 
-├── requirements.txt     # Project dependencies
-└── README.md            # Project documentation
+├── report and slides/
+├── requirements.txt             # Project dependencies
+└── README.md                    # Project documentation
 ```
 
 ## 📚 Data
